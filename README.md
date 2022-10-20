@@ -26,7 +26,45 @@ In order to run the Illlinois people scraper, run the following: \
 
 For more information on the structure of this repository, see the [openstates documentation](https://docs.openstates.org/contributing/scrapers/).
 
+## Data Model
+
+At the top of the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) file, you will find the following line:
+`from openstates.models import ScrapePerson`
+
+This line imports our data model, ScrapePerson, from the openstates-core repository:
+https://github.com/openstates/openstates-core/blob/main/openstates/models/people.py
+
+The ScrapePerson data model includes attributes that we want to acquire for each Senator and Representative from the state of Illinois, such as a given person's name, party, district, etc.
+
 ## Code description
+
+Within the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) file, you will find 4 classes:
+1. Senate
+2. House
+3. LegList
+4. LegDetail
+
+### House
+
+The House class is set up to scrape the house ['list' page](https://ilga.gov/house/default.asp?GA=102). This class sets the 'source' and 'chamber' attributes before calling the LegList class.
+
+### Senate
+
+The Senate class is set up to scrape the senate ['list' page](https://ilga.gov/senate/default.asp?GA=102). This class sets the 'source' and 'chamber' attributes before calling the LegList class.
+
+### LegList
+
+The goal of the LegList class is to scrape information for each Senator and Representative from the given 'list' pages. To do so, we first define our XPath selector. The selector identifies the rows (represented by <tr> html elements) we want to input into the process_item() function. So, process_item() will be called for each <tr> from the selector (61 rows for the Senate page, 120 rows for the House page).
+
+For each row, process_item() will then scrape the availble information (name, party, district) using CSS selectors and add it to the ScrapePerson object. process_item() also scrapes the 'detail link' for each row, which is the url to that Senator's/Representative's detailed page.
+
+Finally, process_item() calls the LegDetail class, passing in the ScrapePerson object and the url to the person's 'detail' page.
+
+More information on the spatula library and scraping a 'list' page can be found here: \
+https://jamesturk.github.io/spatula/scraper-basics/#scraping-a-list-page
+
+### LegDetail
+
 
 ## Decisions
 
