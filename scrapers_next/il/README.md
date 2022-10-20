@@ -11,7 +11,7 @@ https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886.
 
 In order to run this code locally, poetry must be installed:
 
-`$ curl -sSL https://install.python-poetry.org | python3 -`
+`$ curl -sSL https://install.python-poetry.org | python3 -` \
 `$ poetry install`
 
 Poetry builds your Python virtual environment, and will fetch the correct version of dependencies within a repository. See the [openstates documentation](https://docs.openstates.org/contributing/#poetry) for more detail.
