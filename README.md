@@ -50,7 +50,7 @@ The Senate class is set up to scrape the senate ['list' page](https://ilga.gov/s
 
 ### LegList
 
-The goal of the LegList class is to scrape information for each Senator and Representative from the given 'list' pages. To do so, we first define our XPath selector. The selector identifies the rows (represented by `<tr>` html elements) we want to input into the process_item() function. So, process_item() will be called for each `<tr>` from the selector (61 rows for the Senate page, 120 rows for the House page).
+The goal of the LegList class is to scrape information for each Senator and Representative from the given 'list' pages. To do so, we first define our XPath selector. The selector identifies the rows (represented by `<tr>` html elements) we want to input into the process_item() function. process_item() will be called for each `<tr>` from the selector (61 rows for the IL Senate page, 120 rows for the IL House page).
 
 For each row, process_item() will then scrape the availble information (name, party, district) using CSS selectors and add it to the ScrapePerson object. process_item() also scrapes the 'detail link' for each row, which is the url to that Senator's/Representative's detailed page.
 
@@ -61,7 +61,7 @@ https://jamesturk.github.io/spatula/scraper-basics/#scraping-a-list-page
 
 ### LegDetail
 
-Each Senator and Representative has a 'detail' page, which contains more information that we'd like to scrape and add to our data model. The LegDetail class takes in the ScrapePerson object and adds the following attributes to the ScrapePerson object: image, capitol address, captiol phone, capitol fax, district address, district phone, district fax, and email.
+Each Senator and Representative has a 'detail' page, which contains more information that we'd like to scrape and add to our data model. The LegDetail class takes in the ScrapePerson object and adds the following attributes to the object: image, capitol address, captiol phone, capitol fax, district address, district phone, district fax, and email.
 
 Example 'detail' page: https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886
 
