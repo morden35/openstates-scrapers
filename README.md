@@ -11,7 +11,7 @@ https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886.
 
 In order to run this code locally, the [poetry library](https://pypi.org/project/poetry/) must be installed. Do so by running the following from the command line:
 
-`$ curl -sSL https://install.python-poetry.org | python3 -` \
+`$ curl -sSL https://install.python-poetry.org | python3 -`
 
 ## How to run
 
