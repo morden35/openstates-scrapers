@@ -9,17 +9,19 @@ https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886.
 
 ## Dependencies
 
-In order to run this code locally, the [poetry library](https://pypi.org/project/poetry/) must be installed. Do so by runnung the following from the command line: \
+In order to run this code locally, the [poetry library](https://pypi.org/project/poetry/) must be installed. Do so by running the following from the command line: \
 
 `$ curl -sSL https://install.python-poetry.org | python3 -` \
-`$ poetry install`
-
-Poetry builds your Python virtual environment, and will fetch the correct version of dependencies within a repository. See the [openstates documentation](https://docs.openstates.org/contributing/#poetry) for more detail.
 
 ## How to run
 
-First, clone the scraper repository: \
-`$ git clone git@github.com:morden35/openstates-scrapers.git`
+First, clone the scraper repository and navigate to the repository: \
+`$ git clone git@github.com:morden35/openstates-scrapers.git` \
+`$ cd openstates-scrapers/`
+
+Poetry builds your Python virtual environment, and will fetch the correct version of dependencies within a repository. See the [openstates documentation](https://docs.openstates.org/contributing/#poetry) for more detail. To install the dependencies into a new virtual environment, run the following: \
+
+`$ poetry install`
 
 In order to run the Illinois people scraper, run the following: \
 `$ poetry run spatula scrape scrapers_next.il.people`
@@ -68,9 +70,17 @@ Example 'detail' page: https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886
 More information on the spatula library and scraping a 'detail' page can be found here: \
 https://jamesturk.github.io/spatula/scraper-basics/#scraping-a-single-page
 
+## Decisions
+
+One decision that we had to make while scraping web pages was whether or not to use XPath versus CSS selectors. On one hand, CSS selectors are more straightforward and easier to learn than XPath selectors. CSS selectors have a lower learning code for new developers, in my opinion. However, XPath selectors have some functionality that CSS selectors lack (ex: text matching, substring matching). For Open States, our rule of thumb was to default to CSS selectors, and if they can’t get the job done, use XPath in more complicated cases.
+
+You will notice that the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) script contained 1 XPath selector, and a number of CSS selectors. I chose to use the XPath selector in the LegList class because I wanted to grab the rows from the 'Current Senate/House Members' table, and not the 'Former Senate/Houes Members' table. XPath allows us to specify which table we want to scrape (only the first), where CSS does not.
+
 ## Data storage
 
 According to the [spatula docs](https://jamesturk.github.io/spatula/data-models/#data-models-as-output), when running `spatula scrape`, data is written to disk as JSON. After running the following command: `$ poetry run spatula scrape scrapers_next.il.people`, the scraped data can be found in the `openstates-scrapers/scrapers_next/il/_scrapes/<date_of_scrape>` folder.
+
+In the long term, the JSON data on disk gets imported into a PostgreSQL database.
 
 ## Citations
 
