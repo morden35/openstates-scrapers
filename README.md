@@ -28,7 +28,7 @@ For more information on the structure of this repository, see the [openstates do
 
 ## Data Model
 
-At the top of the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) file, you will find the following line:
+At the top of the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) file, you will find the following line: \
 `from openstates.models import ScrapePerson`
 
 This line imports our data model, ScrapePerson, from the openstates-core repository:
@@ -39,10 +39,6 @@ The ScrapePerson data model includes attributes that we want to acquire for each
 ## Code description
 
 Within the [openstates-scrapers/scrapers_next/il/people.py](https://github.com/morden35/openstates-scrapers/blob/il_people_example/scrapers_next/il/people.py) file, you will find 4 classes:
-1. Senate
-2. House
-3. LegList
-4. LegDetail
 
 ### House
 
@@ -65,8 +61,20 @@ https://jamesturk.github.io/spatula/scraper-basics/#scraping-a-list-page
 
 ### LegDetail
 
+Each Senator and Representative has a 'detail' page, which contains more information that we'd like to scrape and add to our data model. The LegDetail class takes in the ScrapePerson object and adds the following attributes to the ScrapePerson object: image, capitol address, captiol phone, capitol fax, district address, district phone, district fax, and email.
+
+Example 'detail' page: https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2886
+
+More information on the spatula library and scraping a 'detail' page can be found here: \
+https://jamesturk.github.io/spatula/scraper-basics/#scraping-a-single-page
 
 ## Decisions
 
 ## Data storage
 
+According to the [spatula docs](https://jamesturk.github.io/spatula/data-models/#data-models-as-output), when running `spatula scrape`, data is written to disk as JSON. After running the following command: `$ poetry run spatula scrape scrapers_next.il.people`, the scraped data can be found in the `openstates-scrapers/scrapers_next/il/_scrapes/<date_of_scrape>` folder.
+
+## Citations
+
+https://jamesturk.github.io/spatula/
+https://docs.openstates.org/
